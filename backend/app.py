@@ -16,7 +16,14 @@ except ImportError:
     pass  # python-dotenv is optional, env vars can be set directly
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={
+    r"/*": {
+        "origins": "*",
+        "methods": ["GET", "POST", "OPTIONS", "PUT", "DELETE"],
+        "allow_headers": ["Content-Type", "Authorization"],
+        "supports_credentials": True
+    }
+})
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
