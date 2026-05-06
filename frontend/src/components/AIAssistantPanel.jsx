@@ -25,42 +25,42 @@ import 'katex/dist/katex.min.css'
 // Markdown + Math renderer
 // ---------------------------------------------------------------------------
 const markdownComponents = {
-  h1: ({node, ...props}) => <h2 className="text-lg font-bold gradient-text mt-4 mb-2" {...props} />,
-  h2: ({node, ...props}) => <h3 className="text-base font-bold text-white mt-4 mb-1" {...props} />,
-  h3: ({node, ...props}) => <h4 className="text-sm font-bold text-quantum-blue mt-3 mb-1" {...props} />,
-  p: ({node, ...props}) => <p className="text-sm text-white/80 leading-relaxed mb-2" {...props} />,
+  h1: ({node, ...props}) => <h2 className="text-lg font-bold gradient-text mt-4 mb-2 break-words" {...props} />,
+  h2: ({node, ...props}) => <h3 className="text-base font-bold text-white mt-4 mb-1 break-words" {...props} />,
+  h3: ({node, ...props}) => <h4 className="text-sm font-bold text-quantum-blue mt-3 mb-1 break-words" {...props} />,
+  p: ({node, ...props}) => <p className="text-sm text-white/80 leading-relaxed mb-2 break-words overflow-hidden" {...props} />,
   ul: ({node, ...props}) => <ul className="space-y-1 mb-2" {...props} />,
   li: ({node, ...props}) => (
-    <li className="flex gap-2 text-sm text-white/80 pl-2">
+    <li className="flex gap-2 text-sm text-white/80 pl-2 break-words">
       <span className="text-quantum-blue mt-0.5 shrink-0">•</span>
-      <span>{props.children}</span>
+      <span className="break-words">{props.children}</span>
     </li>
   ),
   code: ({node, className, children, ...props}) => {
     const isInline = !className || !className.includes('language-')
     if (isInline) {
       return (
-        <code className="px-1.5 py-0.5 bg-quantum-blue/10 border border-quantum-blue/20 rounded text-quantum-blue text-xs font-mono" {...props}>
+        <code className="px-1.5 py-0.5 bg-quantum-blue/10 border border-quantum-blue/20 rounded text-quantum-blue text-xs font-mono break-words overflow-x-auto" {...props}>
           {children}
         </code>
       )
     }
     return (
-      <div className="my-2 p-2 bg-black/30 border border-white/10 rounded-lg overflow-x-auto">
-        <code className={`text-xs font-mono text-white/80 ${className || ''}`} {...props}>
+      <div className="my-2 p-2 bg-black/30 border border-white/10 rounded-lg overflow-x-auto max-w-full">
+        <code className={`text-xs font-mono text-white/80 break-words whitespace-pre-wrap ${className || ''}`} {...props}>
           {children}
         </code>
       </div>
     )
   },
-  strong: ({node, ...props}) => <strong className="text-white font-semibold" {...props} />,
+  strong: ({node, ...props}) => <strong className="text-white font-semibold break-words" {...props} />,
 }
 
 function MarkdownRenderer({ content }) {
   if (!content) return null
 
   return (
-    <div className="ai-markdown">
+    <div className="ai-markdown w-full max-w-full overflow-hidden">
       <ReactMarkdown
         remarkPlugins={[remarkMath]}
         rehypePlugins={[rehypeKatex]}
@@ -331,7 +331,7 @@ function AIAssistantPanel() {
             {/* Content area */}
             <div
               ref={scrollRef}
-              className="flex-1 overflow-y-auto p-5 space-y-4"
+              className="flex-1 overflow-y-auto p-5 space-y-4 w-full max-w-full"
             >
               {/* Mode badge */}
               {explanationMode && (
