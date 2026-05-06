@@ -8,12 +8,14 @@
  * unreachable, calls OpenRouter directly from the browser.
  */
 
+import { API_ENDPOINTS } from '../config/api'
+
 // ---------------------------------------------------------------------------
 // Configuration
 // ---------------------------------------------------------------------------
 
 const OPENROUTER_URL = 'https://openrouter.ai/api/v1/chat/completions'
-const BACKEND_AI_URL = '/api/ai-explain'
+const BACKEND_AI_URL = API_ENDPOINTS.AI_EXPLAIN
 
 // Configurable model — defaults to gpt-4o-mini via OpenRouter
 const DEFAULT_MODEL = import.meta.env.VITE_AI_MODEL || 'openai/gpt-4o-mini'

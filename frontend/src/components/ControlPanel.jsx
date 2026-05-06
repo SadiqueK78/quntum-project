@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { useCircuitStore } from '../store/useCircuitStore'
 import { useAI } from '../hooks/useAI'
 import axios from 'axios'
+import { API_ENDPOINTS } from '../config/api'
 
 const ALGORITHM_TEMPLATES = [
   {
@@ -199,7 +200,7 @@ function ControlPanel() {
     setError(null)
 
     try {
-      const response = await axios.post('/api/simulate', {
+      const response = await axios.post(API_ENDPOINTS.SIMULATE, {
         qubits,
         gates: circuitToGates(),
       })
